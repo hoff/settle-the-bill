@@ -13,14 +13,13 @@ import { AppComponent } from './app.component'
 import { BackendService } from './backend.service'
 import { TripPageComponent } from './trip-page/trip-page.component'
 import { HomePageComponent } from './home-page/home-page.component'
-
 import { environment } from '../environments/environment'
 
 // routes
 const appRoutes: Routes = [
   
-  { path: environment.base + '', component: HomePageComponent },
-  { path: environment.base + 'trip/:id', component: TripPageComponent },
+  { path: '', component: HomePageComponent },
+  { path: 'trip/:id', component: TripPageComponent },
 ]
 
 @NgModule({
