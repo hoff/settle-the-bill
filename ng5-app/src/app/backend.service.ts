@@ -7,6 +7,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 import { debounceTime, map } from "rxjs/operators";
 
+// app
+import { environment } from '../environments/environment';
+
 interface Balance {
   total: number;
   due: number;
@@ -46,12 +49,11 @@ export interface Document {
 @Injectable()
 export class BackendService {
 
+  backendBaseURL = environment.backendBaseURL
   documentID;
-  balance: Balance;
-
-  changeSubject = new Subject<any>();
-
   document: Document 
+  balance: Balance;
+  changeSubject = new Subject<any>();
 
   constructor(public http: HttpClient, public router: Router) {
     // autosave
@@ -82,7 +84,7 @@ export class BackendService {
    */
   loadTrip(id) {
     this.http
-      .get("http://localhost:8080/api/documents/" + id)
+      .get(this.backendBaseURL + "/api/documents/" + id)
       .subscribe((reply: DocumentResponse) => {
 
         // store document
@@ -103,7 +105,7 @@ export class BackendService {
     this.document = this.blankDocument()
     this.document.tripName = tripName
     this.http
-      .put("http://localhost:8080/api/documents/0", this.document)
+      .put(this.backendBaseURL + "/api/documents/0", this.document)
       .subscribe((response: DocumentResponse) => {
         this.document = response.document;
         this.router.navigate(["/trip", response.id]);
@@ -133,7 +135,7 @@ export class BackendService {
   saveTrip() {
     this.http
       .post(
-        "http://localhost:8080/api/documents/" + this.documentID,
+        this.backendBaseURL + "/api/documents/" + this.documentID,
         this.document
       )
       .subscribe((reply: DocumentResponse) => {
