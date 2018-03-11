@@ -21,7 +21,7 @@ handlers:
   secure: always
 
 - url: /favicon.ico
-  static_files: favicon.ico
+  static_files: angular/favicon.ico
   upload: favicon.ico
   secure: always
 

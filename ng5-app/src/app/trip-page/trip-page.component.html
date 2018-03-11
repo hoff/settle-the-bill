@@ -1,6 +1,6 @@
 
 <!-- landing page mask -->
-<flex-col-center-center [@expandCollapse]="displayState">
+<flex-col-center-center [@expandCollapse]="displayState" style="margin-bottom: 10px; margin-top: 10px;">
 
   <div style="display: flex;" class="content-width">
     
@@ -45,7 +45,7 @@
 <div *ngIf="backend.document" >
   <flex-row-center *ngIf="backend.document && displayState === 'collapsed'">
 
-    <flex-row class="content-width" style="border-top: 1px solid #eee;">
+    <flex-row class="content-width" style="margin-top: 5px solid #eee;">
 
       <!-- left -->
       <div style="width: 50%; margin-right: 60px;">
