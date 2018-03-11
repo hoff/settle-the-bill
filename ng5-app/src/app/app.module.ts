@@ -1,18 +1,45 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+// ng
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { HttpClientModule } from '@angular/common/http'
+import { RouterModule, Routes } from '@angular/router'
+import { FormsModule } from '@angular/forms'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
-import { AppComponent } from './app.component';
 
+// app
+import { AppComponent } from './app.component'
+import { BackendService } from './backend.service'
+import { TripPageComponent } from './trip-page/trip-page.component'
+import { HomePageComponent } from './home-page/home-page.component'
+
+// routes
+const appRoutes: Routes = [
+  { path: '', component: HomePageComponent },
+  { path: 'trip/:id', component: TripPageComponent },
+]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent,
+    TripPageComponent,
   ],
   imports: [
-    BrowserModule
+    RouterModule.forRoot(appRoutes),
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    BackendService,
+  ],
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ]
 })
-export class AppModule { }
+export class AppModule { 
+}

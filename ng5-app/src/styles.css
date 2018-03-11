@@ -1,1 +1,148 @@
 /* You can add global styles to this file, and also import other style files */
+html, body, input {
+	margin: 0;
+	padding: 0;
+	font-family: Montserrat;
+}
+button {
+	font-family: Montserrat;
+}
+h1, h2, h3, h4 {
+	font-weight: 500;
+}
+#app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #eee;
+	width: 100vw;
+}
+.content-width {
+	width: 100%;
+	max-width: 1000px;
+	box-sizing: border-box;
+	margin: 0px auto;
+	background: white;
+	padding: 40px 60px; 
+}
+.trip-input {
+	width: 300px;
+	outline: none;
+	flex-grow: 1; 
+	font-size: inherit; 
+	margin: 0px 15px;
+	background: transparent;
+	color: #333;
+	text-align:left;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 2px solid lightgray;
+}
+.tripname-static {
+	font-weight: normal;
+}
+#go {
+	outline: 0;
+	flex-grow: 1; 
+	text-align: center;
+	background: #333;
+	color: white;
+	border: 0; 
+	font-size: 32px;
+}
+#go:focus {
+	outline: 5px solid lightblue;
+}
+#go:disabled {
+	background: #666;
+}
+
+.traveller-container {
+	margin-bottom: 20px;
+}
+
+.traveller-name-input {
+	border: 0;
+	background: transparent;
+	font-size: 24px;
+	font-weight: 500;
+	width: 100%; 
+	text-align: left;
+	padding: 20px;
+	outline: none;
+}
+
+.traveller-name-input:focus {
+	background-color: #eee;
+}
+
+.traveller-expense-input {
+	background:transparent;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 1px solid lightgray;
+	padding: 5px;
+	font-size: 18px;
+	outline:none;
+}
+.traveller-expense-input:focus {
+	background-color: #eee;
+}
+.amount-input {
+	width: 100px;
+	text-align: right;
+}
+.info-block {
+	margin-bottom: 30px;
+}
+.btn {
+	font-size: 16px;
+	background: white;
+	color: #333;
+	border: 1px solid #666;
+	padding: 10px  20px;
+}
+
+/** custom element tags */
+inline-block {
+	display: inline-block;
+}
+flex-row {
+	display: flex;
+}
+flex-row-center {
+	display: flex;
+	justify-content: center;
+}
+flex-row-center-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+flex-col-start-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+flex-col-center-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+::-webkit-input-placeholder {
+	color: #aaa;
+}
+::-moz-placeholder {
+	color: #aaa;
+}
+:-ms-input-placeholder {
+	color: #aaa;
+}
+:-moz-placeholder {
+	color: #aaa;
+}

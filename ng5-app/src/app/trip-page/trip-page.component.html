@@ -1,0 +1,133 @@
+
+<!-- landing page mask -->
+<flex-col-center-center [@expandCollapse]="displayState">
+
+  <div style="display: flex;" class="content-width">
+    
+    <!-- split the bill wording -->
+    <inline-block 
+      class="landing-wording" 
+      [routerLink]="['/trip/new']" 
+      style="outline: 0;" 
+      [style.cursor]="displayState === 'expanded' ? 'default': 'pointer'"
+    >split the bill for
+    </inline-block>  
+        
+    <!-- trip name input -->
+    <input 
+      *ngIf="displayState === 'expanded'"
+      #tripNameInput autofocus
+      [(ngModel)]="tripnameInput" 
+      placeholder="trip name" 
+      class="landing-wording trip-input"
+    />
+
+    <!-- trip name static -->
+    <inline-block class="landing-wording tripname-static" *ngIf="displayState === 'collapsed'">
+      &nbsp;{{ backend.document?.tripName }}
+    </inline-block>
+        
+    <!-- create trip button -->
+    <button 
+      id="go" 
+      *ngIf="displayState === 'expanded'" 
+      class="landing-wording" 
+      (click)="createTrip()"
+      [disabled]="tripnameInput.length === 0"
+    >go</button>
+  </div>
+
+</flex-col-center-center><!-- end of landing mask -->
+
+
+
+<!-- document content, fade IN! -->
+<div *ngIf="backend.document" >
+  <flex-row-center *ngIf="backend.document && displayState === 'collapsed'">
+
+    <flex-row class="content-width" style="border-top: 1px solid #eee;">
+
+      <!-- left -->
+      <div style="width: 50%; margin-right: 60px;">
+
+        <!-- traveller -->
+        <flex-col-start-center *ngFor="let traveller of backend.document.travellers; let i = index" class="traveller-container">
+
+          <!-- traveller name -->
+          <input type="text" [disabled]="backend.document.completed"
+          [(ngModel)]="traveller.name" [placeholder]="indexString(i + 1) + ' traveller name'" (input)="backend.checkAppendForm()" class="traveller-name-input" />
+
+          <div *ngFor="let expense of traveller.expenses" style="display:flex; width: 100%; background: transparent;; align-items: center;">
+
+            <!-- expense description -->
+            <input type="text" placeholder="add expense" 
+              [disabled]="backend.document.completed"
+              class="traveller-expense-input" 
+              style="flex-grow:1; margin-right: 10px;" 
+              
+              [(ngModel)]="expense.desc" 
+              (input)="backend.checkAppendForm()"/>
+            
+            <!-- expense amount -->
+            <input type="number" placeholder="amount"
+              [disabled]="backend.document.completed"
+              class="traveller-expense-input amount-input"
+              [(ngModel)]="expense.value" 
+              (input)="backend.checkAppendForm()" 
+            />
+
+            <!-- currency symbol -->
+            <span style="color: #666;">€</span>
+
+          </div><!-- end of expenses -->
+
+        </flex-col-start-center> <!-- end of traveller -->
+
+  </div><!-- end of left panel -->
+
+
+
+  <!-- right -->
+  <div *ngIf="backend.balance?.transactions" style="width: 50%; display:flex; flex-direction: column;">
+
+    <div class="info-block">
+        <h2>How to settle the bill</h2>
+
+        <!-- placeholder when no transaction -->
+        <div *ngIf="backend.balance?.transactions.length === 0">
+          A list of transactions will be shown here, as soon as two or more travellers with expeneses have been added.
+        </div>
+        
+        <!-- transactions -->
+        <div *ngFor="let transaction of backend.balance?.transactions">
+          {{ transaction.to }} gets {{ transaction.amount | number:'1.2-2' }} {{ backend.document.currency }} from {{ transaction.from }}
+        </div>
+    </div>
+    
+    <div class="info-block">
+      <!-- share info -->
+      <h2>Share this trip</h2>
+      <span>Anybody with a link to this document can <span [innerText]="backend.document.completed ? 'view' : 'edit'"></span> it.</span>
+    </div>
+    
+
+    <!-- complete the trip -->
+    <div class="info-block" *ngIf="!backend.document.completed && backend.balance?.transactions.length > 0" >
+      <h2>Complete this trip</h2>
+      <span>After completing the trip, no more changes can be made.</span><br><br>
+      <button (click)="backend.completeTrip()" class="btn">complete trip</button>
+    </div>
+
+
+    <!-- completed trip info -->
+    <div class="info-block" *ngIf="backend.document.completed">
+      <h2>This trip has been completed</h2>
+      <span>It can no longer be edited. To start a new document, click <a [routerLink]="['/trip/new']">here</a>.</span>
+    </div>
+
+  </div><!-- end of right panel -->
+
+</flex-row>
+</flex-row-center>
+
+</div>
