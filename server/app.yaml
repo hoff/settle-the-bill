@@ -1,0 +1,40 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+# python libraries provided by appengine
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
+
+handlers:
+# rest api
+- url: /info
+  script: backend.app
+  secure: always
+
+# static angular files (dist content from build)
+- url: /angular
+  static_dir: angular
+  secure: always
+
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
+  secure: always
+
+# serve index.html at all other urls
+- url: /.*
+  static_files: angular/index.html
+  upload: angular/index.html
+  secure: always
+
+# file to exclude from uploading during deploy
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
